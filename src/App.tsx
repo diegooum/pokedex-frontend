@@ -407,7 +407,7 @@ function App() {
               </p>
 
               {/* 📊 GRÁFICO RADAR */}
-              <div className="flex-1 min-h-[250px] relative border-t border-slate-800 pt-4">
+              <div className="h-64 w-full relative border-t border-slate-800 pt-4 mt-4">
                  <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 absolute top-4 left-0">Estadísticas Base</h3>
                  <ResponsiveContainer width="100%" height="100%">
                   <RadarChart cx="50%" cy="55%" outerRadius="75%" data={selectedPokemon.stats}>
