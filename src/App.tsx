@@ -37,6 +37,9 @@ const statShortNames: { [key: string]: string } = {
   'special-attack': 'SPA', 'special-defense': 'SPD', speed: 'SPE',
 };
 
+// Si estamos en tu compu, usa localhost. Si estamos en la nube, usa la URL de Render.
+const API_URL = import.meta.env.VITE_API_URL || 'https://pokedex-backend-6zqs.onrender.com';
+
 function App() {
   // --- ESTADOS ---
   const [pokemons, setPokemons] = useState<PokemonSummary[]>([]);
@@ -78,7 +81,7 @@ function App() {
     const timeoutId = setTimeout(async () => {
       setIsSearching(true);
       try {
-        const { data } = await axios.get(`http://localhost:3000/pokemon/search/${searchTerm.toLowerCase()}`);
+        const { data } = await axios.get(`${API_URL}/pokemon/search/${searchTerm.toLowerCase()}`);
         setPokemons(data);
       } catch (error) {
         console.error("Búsqueda sin resultados", error);
@@ -94,7 +97,7 @@ function App() {
 
   const loadPokemons = async (currentOffset: number) => {
     try {
-      const { data } = await axios.get(`http://localhost:3000/pokemon?limit=20&offset=${currentOffset}`);
+      const { data } = await axios.get(`${API_URL}/pokemon?limit=20&offset=${currentOffset}`);
       if (currentOffset === 0) {
         setPokemons(data);
       } else {
@@ -106,7 +109,7 @@ function App() {
 
   const showFavorites = async () => {
     try {
-      const { data } = await axios.get('http://localhost:3000/pokemon/favorites/all');
+      const { data } = await axios.get(`${API_URL}/pokemon/favorites/all`);
       setPokemons(data); 
       setViewMode('favorites'); 
       setOffset(0); 
@@ -123,7 +126,7 @@ function App() {
     setIsSearching(true); 
     setSearchTerm(''); 
     try {
-      const { data } = await axios.get(`http://localhost:3000/pokemon/type/${type}`);
+      const { data } = await axios.get(`${API_URL}/pokemon/type/${type}`);
       setPokemons(data);
     } catch (error) { console.error(error); }
   };
@@ -131,12 +134,12 @@ function App() {
   const fetchPokemonDetail = async (id: number) => {
       try {
         setRecommendations([]); 
-        const { data } = await axios.get(`http://localhost:3000/pokemon/${id}`);
+        const { data } = await axios.get(`${API_URL}/pokemon/${id}`);
         setSelectedPokemon(data);
         setIsFavorite(false); 
         
         // Carga silenciosa de recomendaciones
-        axios.get(`http://localhost:3000/pokemon/${id}/recommendations`).then(res => {
+        axios.get(`${API_URL}/pokemon/${id}/recommendations`).then(res => {
           setRecommendations(res.data);
         });
 
@@ -146,7 +149,7 @@ function App() {
   const toggleFavorite = async () => {
       if (!selectedPokemon) return;
       try {
-        await axios.post(`http://localhost:3000/pokemon/favorite/${selectedPokemon.id}`);
+        await axios.post(`${API_URL}/pokemon/favorite/${selectedPokemon.id}`);
         setIsFavorite(!isFavorite); 
       } catch (error) { console.error("Error favoritos", error); }
   };
@@ -166,7 +169,7 @@ function App() {
       return;
     }
     try {
-      const { data } = await axios.get(`http://localhost:3000/pokemon/${id}`);
+      const { data } = await axios.get(`${API_URL}/pokemon/${id}`);
       setContenders((prev) => {
         const newList = [...prev, data];
         if (newList.length > 2) return [data]; 
