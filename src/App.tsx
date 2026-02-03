@@ -194,7 +194,7 @@ function App() {
              {/* Simulación de la luz azul de la Pokedex */}
             <div className="w-10 h-10 bg-sky-400 rounded-full border-4 border-white shadow-[0_0_15px_rgba(56,189,248,0.8)] animate-pulse"></div>
             <h1 className="text-2xl md:text-3xl font-black text-white tracking-tighter uppercase italic">
-              Pokédex<span className="text-red-200"></span> Diego Medina
+              Pokédex<span className="text-red-200"></span>
             </h1>
           </div>
           
