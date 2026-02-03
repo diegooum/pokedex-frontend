@@ -216,7 +216,7 @@ function App() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <main className="max-w-[1600px] mx-auto px-4 py-8">
         
         {/* ⚙️ BARRA DE CONTROL PRINCIPAL */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8 bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-lg">
